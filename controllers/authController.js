@@ -39,7 +39,7 @@ exports.refreshToken = (req, res) => {
     const { token } = req.body;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const newToken = jwt.sign({ id: decoded.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const newToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_SECRET, { expiresIn: '24h' });
         res.status(201).json({ status: "success", token: newToken });
     } catch (e) {
         res.status(500).json({ status: "error", error: e.message });
