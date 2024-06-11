@@ -25,23 +25,28 @@ exports.login = async (req, res) => {
 
 
 exports.logout = async (req, res) => {
+    const token = req.header('Authorization').replace('Bearer ', '');
     try {
-        req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
+        req.user.tokens = req.user.tokens.filter(t => t.token !== token);
         await req.user.save();
-
         res.status(200).json({ status: 'success', data: "User logged out" });
     } catch (e) {
+        console.log(e);
         res.status(500).json({ status: "error", error: e.message });
     }
 };
 
+
 exports.refreshToken = (req, res) => {
-    const { token } = req.body;
+    const token = req.header('Authorization').replace('Bearer ', '');
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, { ignoreExpiration: true });
         const newToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_SECRET, { expiresIn: '24h' });
         res.status(201).json({ status: "success", token: newToken });
     } catch (e) {
+        if (e.name === 'TokenExpiredError') {
+            return res.status(401).json({ status: 'error', error: 'Invalid token' });
+        }
         res.status(500).json({ status: "error", error: e.message });
     }
 };

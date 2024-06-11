@@ -62,8 +62,6 @@ const getAnswer = async (question) => {
   // const ai_service_url = 'https://api.smith.langchain.com'
   const ai_service_url = 'https://api-inference.huggingface.co/models/gpt2'
 
-  console.log("question :- ", question)
-
   try {
     const response = await axios.post(
       ai_service_url,
@@ -79,6 +77,7 @@ const getAnswer = async (question) => {
     const answer = response.data[0].generated_text.trim();
 
     return answer;
+    
   } catch (e) {
     console.error('Error fetching answer from Hugging Face:', e.message);
     throw new Error('Error fetching answer from AI service');

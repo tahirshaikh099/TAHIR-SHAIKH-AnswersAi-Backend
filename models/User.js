@@ -5,19 +5,20 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }]
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
+    tokens: [{ token: { type: String, required: true } }]
 });
 
 userSchema.index({ username: 1 });
 userSchema.index({ email: 1 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 10);
     next();
 });
 
-userSchema.methods.comparePassword = function(candidatePassword) {
+userSchema.methods.comparePassword = function (candidatePassword) {
     if (!this.password) {
         throw new Error('Password is missing');
     }
