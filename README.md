@@ -210,5 +210,57 @@ This is the backend for AnswersAI, a web application that allows users to ask qu
     }
     ```
 
-## Project Structure
+## Curl
+1. **POST /api/questions**
+    ```sh
+    curl -X POST https://tahir-shaikh-answersai-backend.onrender.com/api/questions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer {{jwt_token}}" \
+    -d '{"question": "What is the capital of France?"}'
+    ```
+
+2. **GET /api/questions/:questionId**
+    ```sh
+    curl -X GET https://tahir-shaikh-answersai-backend.onrender.com/api/questions/:questionId \
+    -H "Authorization: Bearer {{jwt_token}}"
+    ```
+
+3. **POST /api/users**
+    ```sh
+    curl -X POST https://tahir-shaikh-answersai-backend.onrender.com/api/users \
+    -H "Content-Type: application/json" \
+    -d '{"username": "your_username", "password": "your_password"}'
+    ```
+
+4. **GET /api/users/:userId**
+    ```sh
+    curl -X GET https://tahir-shaikh-answersai-backend.onrender.com/api/users/:userId \
+    -H "Authorization: Bearer {{jwt_token}}"
+    ```
+
+5. **GET /api/users/:userId/questions**
+    ```sh
+    curl -X GET https://tahir-shaikh-answersai-backend.onrender.com/api/users/:userId/questions \
+    -H "Authorization: Bearer {{jwt_token}}"
+    ```
+
+6. **POST /api/auth/login**
+    ```sh
+    curl -X POST https://tahir-shaikh-answersai-backend.onrender.com/api/auth/login \
+    -H "Content-Type: application/json" \
+    -d '{"username": "your_username", "password": "your_password"}'
+    ```
+
+7. **POST /api/auth/logout**
+    ```sh
+    curl -X POST https://tahir-shaikh-answersai-backend.onrender.com/api/auth/logout \
+    -H "Authorization: Bearer {{jwt_token}}"
+    ```
+
+8. **POST /api/auth/refresh**
+    ```sh
+    curl -X POST https://tahir-shaikh-answersai-backend.onrender.com/api/auth/refresh \
+    -H "Authorization: Bearer {{jwt_token}}"
+    ```
+
 
