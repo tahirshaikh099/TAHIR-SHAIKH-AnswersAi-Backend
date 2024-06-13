@@ -77,7 +77,7 @@ const getAnswer = async (question) => {
     const answer = response.data[0].generated_text.trim();
 
     return answer;
-    
+
   } catch (e) {
     console.error('Error fetching answer from Hugging Face:', e.message);
     throw new Error('Error fetching answer from AI service');

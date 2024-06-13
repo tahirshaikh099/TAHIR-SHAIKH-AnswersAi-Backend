@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+
+/**
+ * @function login
+ * @description Logs in a user and generates a JWT token.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -24,6 +31,12 @@ exports.login = async (req, res) => {
 };
 
 
+/**
+ * @function logout
+ * @description Logs out a user by invalidating their JWT token.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.logout = async (req, res) => {
     const token = req.header('Authorization').replace('Bearer ', '');
     try {
@@ -36,7 +49,12 @@ exports.logout = async (req, res) => {
     }
 };
 
-
+/**
+ * @function refreshToken
+ * @description Refreshes a JWT token for a user.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.refreshToken = (req, res) => {
     const token = req.header('Authorization').replace('Bearer ', '');
     try {

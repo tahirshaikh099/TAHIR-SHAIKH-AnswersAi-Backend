@@ -1,5 +1,11 @@
 const User = require('../models/User');
 
+/**
+ * @function createUser
+ * @description Creates a new user.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.createUser = async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -22,6 +28,12 @@ exports.createUser = async (req, res) => {
     }
 };
 
+/**
+ * @function getUser
+ * @description Retrieves a specific user by their ID.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.getUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
@@ -35,7 +47,12 @@ exports.getUser = async (req, res) => {
     }
 };
 
-
+/**
+ * @function getUserQuestions
+ * @description Retrieves all questions asked by a specific user.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.getUserQuestions = async (req, res) => {
     try {
         const user = await User.findById(req.params.userId).populate('questions');

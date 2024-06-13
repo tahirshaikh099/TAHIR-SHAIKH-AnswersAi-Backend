@@ -2,6 +2,12 @@ const Question = require('../models/Question');
 const User = require('../models/User');
 const { getAnswer } = require('../config/ai');
 
+/**
+ * @function createQuestion
+ * @description Creates a new question and fetches the answer from an AI service.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.createQuestion = async (req, res) => {
   const { questionText } = req.body;
   const userId = req.user._id;
@@ -19,7 +25,12 @@ exports.createQuestion = async (req, res) => {
   }
 };
 
-
+/**
+ * @function createQuestion
+ * @description Creates a new question and fetches the answer from an AI service.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.getQuestion = async (req, res) => {
   try {
     const question = await Question.findById(req.params.questionId);
