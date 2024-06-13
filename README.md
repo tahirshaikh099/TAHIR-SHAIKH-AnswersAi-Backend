@@ -1,6 +1,4 @@
-# AnswersAI Backend
-
-## Setup
+## Setup Guide
 
 1. Clone the repository
 2. Run `npm install` to install dependencies
@@ -29,3 +27,188 @@
 ## Testing
 
 - Run `npm test` to run tests
+
+
+
+# AnswersAI Backend
+
+This is the backend for AnswersAI, a web application that allows users to ask questions and receive answers from an AI service. This project uses Node.js, Express, MongoDB, and integrates with the Hugging Face API for AI responses.
+
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- User authentication (signup, login, logout)
+- Asking and viewing questions
+- Integration with Hugging Face API for AI responses
+- Scalable infrastructure on AWS
+
+## Prerequisites
+
+- Node.js (v15.x or later)
+- MongoDB
+- Hugging Face API key
+
+## Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/tahirshaikh099/TAHIR-SHAIKH-AnswersAi-Backend.git
+    cd answersai-backend
+    ```
+
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
+
+## Configuration
+
+1. Create a `.env` file in the root directory and add the following environment variables:
+    ```env
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/answersai
+    JWT_SECRET=your_jwt_secret
+    HUGGINGFACE_API_KEY=your_huggingface_api_key
+    ```
+
+2. Make sure your MongoDB server is running.
+
+## Usage
+
+1. Start the server:
+    ```sh
+    npm start
+    ```
+
+2. The server will be running at `https://tahir-shaikh-answersai-backend.onrender.com`.
+
+## API Documentation
+
+### Authentication
+
+#### Signup
+
+- **URL:** `/api/auth/signup`
+- **Method:** `POST`
+- **Body:**
+    ```json
+    {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "password123"
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "status": "success",
+        "data": {
+            "user": {
+                "_id": "1234567890",
+                "name": "John Doe",
+                "email": "john@example.com"
+            },
+            "token": "jwt_token"
+        }
+    }
+    ```
+
+#### Login
+
+- **URL:** `/api/auth/login`
+- **Method:** `POST`
+- **Body:**
+    ```json
+    {
+        "email": "john@example.com",
+        "password": "password123"
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "status": "success",
+        "data": {
+            "user": {
+                "_id": "1234567890",
+                "name": "John Doe",
+                "email": "john@example.com"
+            },
+            "token": "jwt_token"
+        }
+    }
+    ```
+
+#### Logout
+
+- **URL:** `/api/auth/logout`
+- **Method:** `POST`
+- **Headers:**
+    - `Authorization: Bearer jwt_token`
+- **Response:**
+    ```json
+    {
+        "status": "success",
+        "data": "User logged out"
+    }
+    ```
+
+### Questions
+
+#### Ask Question
+
+- **URL:** `/api/questions`
+- **Method:** `POST`
+- **Headers:**
+    - `Authorization: Bearer jwt_token`
+- **Body:**
+    ```json
+    {
+        "question": "What is the capital of France?"
+    }
+    ```
+- **Response:**
+    ```json
+    {
+        "status": "success",
+        "data": {
+            "_id": "1234567890",
+            "question": "What is the capital of France?",
+            "answer": "The capital of France is Paris."
+        }
+    }
+    ```
+
+#### View Questions
+
+- **URL:** `/api/questions`
+- **Method:** `GET`
+- **Headers:**
+    - `Authorization: Bearer jwt_token`
+- **Response:**
+    ```json
+    {
+        "status": "success",
+        "data": [
+            {
+                "_id": "1234567890",
+                "question": "What is the capital of France?",
+                "answer": "The capital of France is Paris."
+            }
+        ]
+    }
+    ```
+
+## Project Structure
+

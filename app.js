@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const swaggerDocs = require('./swagger');
 
 const authRoutes = require('./routes/authRoutes');
 const questionRoutes = require('./routes/questionRoutes');
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/users', userRoutes);
 
+
 // DB connection to external MongoDB
 mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
@@ -35,6 +37,9 @@ mongoose.connect(process.env.DB_URI, {
 
 
 const PORT = process.env.PORT || 5000;
+
+swaggerDocs(app);
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
